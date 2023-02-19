@@ -1,0 +1,82 @@
+﻿@model EShop.Models.Products
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<br />
+<h2 class="text-info">Create New Product</h2>
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="p-4 rounded border">
+        <div asp-validation-summary="ModelOnly" class="text-danger">
+        </div>
+        <div class="mb-3 row">
+            <div class="col-2">
+                <label asp-for="Name"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Name" class="form-control" />
+            </div>
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-2">
+                <label asp-for="Price"></label>
+            </div>
+            <div class="col-5">
+                @*<input asp-for="Price" class="form-control" />*@
+                @Html.EditorFor(model => model.Price)
+                @Html.ValidationMessageFor(model => model.Price)
+            </div>
+            @*<asp:RegularExpressionValidator ID="reprice" ValidationExpression="^\d{0,8}(\.\d{1,4})?$" runat="server" ErrorMessage="Please Enter Your Correct Product Price" ControlToValidate="txtproductprice" Display="Dynamic" ForeColor="Red" SetFocusOnError="True"></asp:RegularExpressionValidator>*@
+            @*<span asp-validation-for="Price" class="text-danger"></span>*@
+        </div>
+        <div class="mb-3 row">
+            <div class="col-2">
+                <label asp-for="Image"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Image" class="form-control" type="file"/>
+            </div>
+            <span asp-validation-for="Image" class="text-danger"></span>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-2">
+                <label asp-for="ProductColor"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="ProductColor" class="form-control" />
+            </div>
+            <span asp-validation-for="ProductColor" class="text-danger"></span>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-2">
+                <label asp-for="ProductTypeId"></label>
+            </div>
+            <div class="col-5">
+                @*<input asp-for="ProductTypeId" class="form-control" />*@
+                <select asp-for="ProductTypeId" asp-items="ViewBag.productTypeId" class="form-control"></select>
+            </div>
+            <span asp-validation-for="ProductTypeId" class="text-danger"></span>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-2">
+                <label asp-for="IsAvailable"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="IsAvailable" type="checkbox"/>
+            </div>
+            <span asp-validation-for="IsAvailable" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <input type="submit" class="btn btn-primary" value="Save" />
+            <a asp-action="Index" class="btn btn-success">Back to List</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync(partialViewName: "_ValidationScriptsPartial");
+    }
+}
